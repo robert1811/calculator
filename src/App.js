@@ -4,65 +4,46 @@ import { evaluate } from 'mathjs';
 import { useState } from 'react';
 import Boton from './components/boton.jsx';
 import ClearBtn from './components/clear.jsx';
-import Input from './components/input.jsx';
+import Output from './components/output.jsx';
+import Input from './components/input.jsx'
 
 function App() {
 
-  let counter = 0;
-  const [num, setNum] = useState('')
+  const [num, setNum] = useState('0');
+
+  const regex = /\d+\.\d+\.$|\.\.|^\.|^\/|^\*|^\+|^-|--|\+\+|\/\/|\*\*|\+-|-\+|\*\+|\*\/|\/\*/g;
+  const regexDot = /\d+\.\d+$/g
+
   const writeNum = (val) =>{
     if(num[0] === "0"){
         setClear();
         setNum(val);
-    } else if(num[num.length - 1] === "*" && val === "*"){
-      setNum(num.pop())
-    }else if(num[num.length - 1] === "+" && val === "+"){
-      setNum(num.substring(0 , num.length));
-    }else if(num[num.length - 1] === "." && val === "."){
-      setNum(num.substring(0 , num.length));
-    }else if(num[num.length - 1] === "-" && val === "-"){
-      setNum(num.substring(0 , num.length));
-    }else if(num[num.length - 1] === "/" && val === "/"){
-      setNum(num.substring(0 , num.length));
-    }else if(num[num.length - 1] === "*" && val === "/"){
-      setNum(num.substring(0 , num.length - 1)+ "/");
-    }else if(num[num.length - 1] === "/" && val === "*"){
-      setNum(num.substring(0 , num.length - 1)+ "*");
-    }else if(num[0] === "*" && val === "-"){
-      setNum(num.substring(0 , num.length - 1)+ "-");
-    }else if(num[0] === "-" && val === "*"){
-      setNum(num.substring(0 , num.length - 1)+ "*");
-    }else if(num[0] === "+" && val === "-"){
-      setNum(num.substring(0 , num.length - 1)+ "-");
-    }else if(num[num.length - 1] === "-" && val === "+"){
-      setNum(num.substring(0 , num.length - 1)+ "+");
-    }else if(num[num.length - 1] === "+" && val === "*"){
-      setNum(num.substring(0 , num.length - 1)+ "*");
-    }else if(num[num.length - 1] === "*" && val === "+"){
-      setNum(num.substring(0 , num.length - 1)+ "+");
-    } else if(num.includes("+-")){
-      setNum(num.substring(0 , num.length - 1));
-    }
+    }else if (regexDot === false){
+      setNum(num.substring(0, num.length - 1));
+    } else if(regex.test(num) === true){
+      setNum(num.substring(0, num.length - 1));
+      console.log(num)
+    } 
     else{
-      setNum(num + val)
+      setNum(num + val);
     }
   }
 
   const setClear = () =>{
-    setNum('')
+    console.clear();
+    setNum('0');
   }
 
   const result = () =>{
-    counter = 1;
-    console.log(counter);
     setNum(evaluate(num));
   }
 
   return (
     <div className="App">
       <div className='calculator'>
-      <div className='row'>
-        <Input id="display">{num}</Input>
+      <div className='screen'>
+        <Output>{num}</Output>
+        <Input>{num}</Input>
       </div>
       <div className='row'>
         <Boton num="seven" event={writeNum}>7</Boton>

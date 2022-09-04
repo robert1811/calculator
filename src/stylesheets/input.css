@@ -1,11 +1,5 @@
 .input{
-    height: 80px;
-    flex: 1 1;
-    margin: 10px;
-    border: 8px solid white;
-    border-radius: 20px;
-    background-color: black;
-    color: #ffff;
-    font-size: 2em;
-    padding: 10px
+    font-size: 1.8em;
+    text-align: right;
+    color: rgb(133, 192, 192);
 }

@@ -4,7 +4,7 @@ import '../stylesheets/boton.css'
 const Boton = (props) =>{
 
     return(
-            <button className="button" id={props.num} onClick={()=> props.event(props.children)}>{props.children}</button>
+            <button className="button" id={props.num} onKeyDown={()=> props.event(props.children)} onClick={()=> props.event(props.children)}>{props.children}</button>
     )
 }
 
