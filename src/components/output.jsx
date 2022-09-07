@@ -3,7 +3,7 @@ import '../stylesheets/output.css'
 
 const Output = (props) =>{
     return(
-    <div id="display" onChange={props.handle} className="output">{props.children}</div>
+    <div id="display" className="output">{props.children}</div>
     )
 }
 
